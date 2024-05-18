@@ -83,9 +83,10 @@ def load(
     model_cache = Path(cache) / model_id
     config_path, checkpoint_path = model_cache / f"{model_id}-config.json", model_cache / f"{model_id}.pt"
     os.makedirs(model_cache, exist_ok=True)
-    if not checkpoint_path.exists() or not config_path.exists():
-        gdown.download(id=MODEL_REGISTRY[model_id]["config"], output=str(config_path), quiet=False)
-        gdown.download(id=MODEL_REGISTRY[model_id]["checkpoint"], output=str(checkpoint_path), quiet=False)
+    # Disable gdown altogether.
+    # if not checkpoint_path.exists() or not config_path.exists():
+    #     gdown.download(id=MODEL_REGISTRY[model_id]["config"], output=str(config_path), quiet=False)
+    #     gdown.download(id=MODEL_REGISTRY[model_id]["checkpoint"], output=str(checkpoint_path), quiet=False)
 
     # Load Configuration --> patch `hf_cache` key if present (don't download to random locations on filesystem)
     with open(config_path, "r") as f:
